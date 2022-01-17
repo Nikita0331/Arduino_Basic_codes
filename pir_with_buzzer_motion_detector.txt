@@ -1,0 +1,21 @@
+// C++ code
+//
+int buzz = 13;               
+int inputPin = 9;               
+
+void setup()
+{
+  pinMode(buzz, OUTPUT);   
+  pinMode(inputPin, INPUT);      
+  Serial.begin(9600);
+}
+void loop()
+{
+  int pir;
+  pir=digitalRead(9);
+  if(pir==HIGH)
+  digitalWrite(buzz,HIGH);
+  else
+  digitalWrite(buzz,LOW);
+  delay(10);
+}

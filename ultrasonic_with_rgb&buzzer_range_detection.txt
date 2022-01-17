@@ -1,0 +1,60 @@
+const int trigPin = 9; 
+const int echoPin = 10;
+const int buzz = 6;
+const int rgb[3]={11,12,13};
+float duration,distance;
+
+void setup()
+{ 
+  Serial.begin (9600);
+ pinMode(trigPin, OUTPUT); 
+ pinMode(echoPin, INPUT);
+ pinMode(rgb[0], OUTPUT);
+  pinMode(rgb[1], OUTPUT);
+  pinMode(rgb[2], OUTPUT);
+  pinMode(buzz , OUTPUT);
+} 
+void loop() 
+{ 
+ digitalWrite(trigPin, LOW); 
+ delayMicroseconds(2); 
+ digitalWrite(trigPin, HIGH); 
+ delayMicroseconds(10); 
+ digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH); 
+ distance = (duration*0.0343)/2;
+if(distance<=110)
+{
+ analogWrite(rgb[2],255);
+ delay(500);
+  analogWrite(rgb[2],0);
+  delay(500);
+}
+  else if(distance>110&&distance<=220)
+  {
+    analogWrite(rgb[0],255);
+    delay(500);
+    analogWrite(rgb[0],0);
+    delay(500);
+  }
+  else if (distance>220&&distance<=320)
+  {
+    analogWrite(rgb[1],255);
+    delay(500);
+    analogWrite(rgb[1], 0);
+    delay(500);
+  }
+  
+ else if(distance>=320||distance<=0)
+  {
+    digitalWrite(buzz,HIGH);
+    delay(1000);
+   digitalWrite(buzz,LOW);
+   
+   
+  }
+  
+  if(distance<=320)
+Serial.print(distance);
+Serial.println(" cm");
+}

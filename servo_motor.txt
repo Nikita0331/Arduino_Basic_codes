@@ -1,0 +1,18 @@
+#include <Servo.h>             //Servo library
+int servoPin=9;
+int senVal=0;
+int outVal=0;
+Servo Servo;
+void setup()
+{
+  pinMode(A0,INPUT);
+  Servo.attach(servoPin);
+}
+void loop()
+{
+  senVal=analogRead(A0);
+  outVal=map(senVal,0,1023,0,180);
+  
+  Servo.write(outVal);
+  
+}

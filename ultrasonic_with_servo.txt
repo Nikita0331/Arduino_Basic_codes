@@ -1,0 +1,35 @@
+// C++ code
+//
+#include <Servo.h>
+const int Trig  = 10;  
+const int Echo  = 11; 
+Servo servo;
+float duration, distance;
+
+void setup() {
+  Serial.begin (9600);      
+  pinMode(Trig, OUTPUT); 
+  pinMode(Echo, INPUT);  
+  servo.attach(9); 
+  
+}
+
+void loop() {
+  
+digitalWrite(Trig, LOW); 
+ delayMicroseconds(2); 
+ digitalWrite(Trig, HIGH); 
+ delayMicroseconds(10); 
+ digitalWrite(Trig, LOW);
+  duration = pulseIn(Echo, HIGH); 
+ distance = (duration*0.0343)/2;
+  if(distance < 320)
+    servo.write(180); 
+  else
+    servo.write(0);  
+  Serial.print("distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+
+  delay(100);
+}

@@ -1,0 +1,57 @@
+#include <LiquidCrystal.h>
+const int sensorPin = 0;
+const int rs=11, en=10;          		  
+const int d4=6 , d5=5, d6=4, d7=3;
+int val=0;
+LiquidCrystal lcd(rs,en, d4, d5, d6,d7);
+float volt,tempC,tempF;
+void setup()
+{
+ lcd.begin(16,2);
+ lcd.setCursor(0,0);
+  lcd.print("Temp & Voltage");
+  lcd.setCursor(0,1);
+  lcd.print("Meter");
+  delay(2500);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  Serial.begin(9600);
+}
+ 
+void loop()
+{
+   val = analogRead(sensorPin);
+   volt = (val) *( 5.0/1024);
+   tempC = (volt - 0.5) * 100 ;
+   tempF = (tempC * 9.0 / 5.0) + 32.0;
+
+  lcd.setCursor(0,0);
+  lcd.print("Temp in C : ");
+  lcd.setCursor(0,1);
+  lcd.print(tempC);
+  delay(2500);
+  lcd.clear();
+ 
+  lcd.setCursor(0,0);
+  lcd.print("Temp in F : ");
+  lcd.setCursor(0,1);
+  lcd.print(tempF);
+  delay(2500);
+  lcd.clear();
+ 
+  lcd.setCursor(0,0);
+  lcd.print("Voltage : ");
+  lcd.setCursor(0,1);
+  lcd.print(volt);
+  delay(2500);
+  lcd.clear();
+  
+  delay(100);   
+ 
+  Serial.print(tempC);
+  Serial.println(" degrees C");
+  Serial.print(tempF);
+  Serial.println(" degrees F");
+  Serial.print(volt);
+  Serial.println(" volts");
+}
